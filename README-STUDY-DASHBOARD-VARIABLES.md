@@ -4,6 +4,8 @@
 
 通過分析現有的 Variables 功能，學習如何在 Flowise 中新增一個完整的功能模組。
 
+> 注意: 增加項目後，要徹底建置 `npm run build`後才有效，如果直接 `npm run dev` 並不會產生更新。
+
 ---
 
 ## 📂 檔案結構對照表
@@ -303,6 +305,7 @@ Entity → Interface → Service → Controller → Routes → 權限
     - 後端: `router.use('/repositories', ...)`
 
 3. **API 呼叫**: URL 必須對應
+
     - 前端: `client.get('/repositories')`
     - 後端: `router.get('/', ...)`
 
@@ -322,6 +325,7 @@ Entity → Interface → Service → Controller → Routes → 權限
     - 理解為什麼這樣寫
 
 3. **測試修改**
+
     - 嘗試改變文字
     - 嘗試增加欄位
     - 觀察變化
