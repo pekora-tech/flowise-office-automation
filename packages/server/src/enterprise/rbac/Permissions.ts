@@ -78,6 +78,13 @@ export class Permissions {
         documentStoresCategory.addPermission(new Permission('documentStores:upsert-config', 'Upsert Config'))
         this.categories.push(documentStoresCategory)
 
+        const repositoriesCategory = new PermissionCategory('repositories')
+        repositoriesCategory.addPermission(new Permission('repositories:view', 'View'))
+        repositoriesCategory.addPermission(new Permission('repositories:create', 'Create'))
+        repositoriesCategory.addPermission(new Permission('repositories:update', 'Update'))
+        repositoriesCategory.addPermission(new Permission('repositories:delete', 'Delete'))
+        this.categories.push(repositoriesCategory)
+
         const datasetsCategory = new PermissionCategory('datasets')
         datasetsCategory.addPermission(new Permission('datasets:view', 'View'))
         datasetsCategory.addPermission(new Permission('datasets:create', 'Create'))

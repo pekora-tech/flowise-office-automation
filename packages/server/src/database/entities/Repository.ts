@@ -28,15 +28,15 @@ export class Repository implements IRepository {
     @Column({ nullable: true, type: 'text' })
     authToken: string
 
-    @Column({ type: 'timestamp' })
+    @Column({ type: 'datetime' })
     @CreateDateColumn()
     createdDate: Date
 
-    @Column({ type: 'timestamp' })
+    @Column({ type: 'datetime' })
     @UpdateDateColumn()
     updatedDate: Date
 
-    @Column({ nullable: true, type: 'timestamp' })
+    @Column({ nullable: true, type: 'datetime' })
     lastSyncDate: Date
 
     @Column({ nullable: false, type: 'text' })

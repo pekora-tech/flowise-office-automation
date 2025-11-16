@@ -24,13 +24,13 @@ export class GitCommit implements IGitCommit {
     @Column({ nullable: true, type: 'text' })
     authorEmail: string
 
-    @Column({ type: 'timestamp' })
+    @Column({ type: 'datetime' })
     commitDate: Date
 
     @Column({ nullable: true, type: 'text' })
     branch: string
 
-    @Column({ type: 'timestamp' })
+    @Column({ type: 'datetime' })
     @CreateDateColumn()
     createdDate: Date
 
