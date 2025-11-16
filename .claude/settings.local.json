@@ -1,9 +1,18 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(cat:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+    "permissions": {
+        "allow": [
+            "Bash(cat:*)",
+            "Bash(node --version:*)",
+            "Bash(where pnpm:*)",
+            "Bash(nul)",
+            "Bash(npm install:*)",
+            "Bash(pnpm --version:*)",
+            "Bash(pnpm install:*)",
+            "Bash(copy \"packages\\server\\.env.example\" \"packages\\server\\.env\")",
+            "Bash(copy \"packages\\ui\\.env.example\" \"packages\\ui\\.env\")",
+            "Bash(pnpm build:*)"
+        ],
+        "deny": [],
+        "ask": []
+    }
 }
