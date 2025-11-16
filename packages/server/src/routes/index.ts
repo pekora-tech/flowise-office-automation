@@ -56,6 +56,7 @@ import executionsRouter from './executions'
 import validationRouter from './validation'
 import agentflowv2GeneratorRouter from './agentflowv2-generator'
 import textToSpeechRouter from './text-to-speech'
+import repositoriesRouter from './repositories'
 
 import authRouter from '../enterprise/routes/auth'
 import auditRouter from '../enterprise/routes/audit'
@@ -115,6 +116,7 @@ router.use('/public-executions', publicExecutionsRouter)
 router.use('/stats', statsRouter)
 router.use('/tools', toolsRouter)
 router.use('/variables', variablesRouter)
+router.use('/repositories', repositoriesRouter)
 router.use('/vector', vectorRouter)
 router.use('/verify', verifyRouter)
 router.use('/version', versionRouter)

@@ -34,6 +34,9 @@ const Credentials = Loadable(lazy(() => import('@/views/credentials')))
 // variables routing
 const Variables = Loadable(lazy(() => import('@/views/variables')))
 
+// repositories routing
+const Repositories = Loadable(lazy(() => import('@/views/repositories')))
+
 // documents routing
 const Documents = Loadable(lazy(() => import('@/views/docstore')))
 const DocumentStoreDetail = Loadable(lazy(() => import('@/views/docstore/DocumentStoreDetail')))
@@ -173,6 +176,14 @@ const MainRoutes = {
             element: (
                 <RequireAuth permission={'variables:view'}>
                     <Variables />
+                </RequireAuth>
+            )
+        },
+        {
+            path: '/repositories',
+            element: (
+                <RequireAuth permission={'repositories:view'}>
+                    <Repositories />
                 </RequireAuth>
             )
         },

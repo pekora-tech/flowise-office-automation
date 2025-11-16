@@ -10,7 +10,8 @@
             "Bash(pnpm install:*)",
             "Bash(copy \"packages\\server\\.env.example\" \"packages\\server\\.env\")",
             "Bash(copy \"packages\\ui\\.env.example\" \"packages\\ui\\.env\")",
-            "Bash(pnpm build:*)"
+            "Bash(pnpm build:*)",
+            "Bash(dir:*)"
         ],
         "deny": [],
         "ask": []

@@ -148,6 +148,35 @@ export interface IVariable {
     workspaceId: string
 }
 
+export interface IRepository {
+    id: string
+    name: string
+    url: string
+    branch?: string
+    description?: string
+    active: boolean
+    authType?: string
+    authToken?: string
+    createdDate: Date
+    updatedDate: Date
+    lastSyncDate?: Date
+    workspaceId: string
+}
+
+export interface IGitCommit {
+    id: string
+    repositoryId: string
+    hash: string
+    message: string
+    author: string
+    authorEmail?: string
+    commitDate: Date
+    branch?: string
+    createdDate: Date
+    worklogDescription?: string
+    processed: boolean
+}
+
 export interface ILead {
     id: string
     name?: string
