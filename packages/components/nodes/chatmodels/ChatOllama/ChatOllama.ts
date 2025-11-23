@@ -42,7 +42,8 @@ class ChatOllama_ChatModels implements INode {
             {
                 label: 'Model Name',
                 name: 'modelName',
-                type: 'string',
+                type: 'asyncOptions',
+                loadMethod: 'listModels',
                 placeholder: 'llama2'
             },
             {
@@ -212,6 +213,32 @@ class ChatOllama_ChatModels implements INode {
                 additionalParams: true
             }
         ]
+    }
+
+    async listModels(nodeData: INodeData): Promise<any> {
+        const baseUrl = nodeData.inputs?.baseUrl as string
+        const url = `${baseUrl || 'http://localhost:11434'}/api/tags`
+
+        try {
+            const response = await fetch(url)
+            if (!response.ok) {
+                throw new Error(`Failed to fetch models: ${response.statusText}`)
+            }
+            const data = await response.json()
+            const models = data.models || []
+
+            return models.map((model: any) => ({
+                label: model.name,
+                name: model.name,
+                description: `Size: ${(model.size / 1024 / 1024 / 1024).toFixed(2)} GB, Modified: ${new Date(
+                    model.modified_at
+                ).toLocaleDateString()}`
+            }))
+        } catch (error) {
+            console.error('Error fetching Ollama models:', error)
+            // Return empty array if fetch fails
+            return []
+        }
     }
 
     async init(nodeData: INodeData): Promise<any> {
