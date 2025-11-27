@@ -122,56 +122,57 @@ export const AsyncDropdown = ({
         }
     }
 
-    useEffect(() => {
+    const fetchData = async () => {
         setLoading(true)
-        ;(async () => {
-            const fetchData = async () => {
-                let response = []
-                if (credentialNames.length) {
-                    response = await fetchCredentialList()
-                } else {
-                    const body = {
-                        name,
-                        nodeData
-                    }
-                    if (reactFlowInstance) {
-                        const previousNodes = getAvailableNodesForVariable(
-                            reactFlowInstance.getNodes(),
-                            reactFlowInstance.getEdges(),
-                            nodeData.id,
-                            `${nodeData.id}-input-${name}-${nodeData.inputParams.find((param) => param.name === name)?.type || ''}`,
-                            true
-                        ).map((node) => ({ id: node.id, name: node.data.name, label: node.data.label, inputs: node.data.inputs }))
-
-                        let currentNode = reactFlowInstance.getNodes().find((node) => node.id === nodeData.id)
-                        if (currentNode) {
-                            currentNode = {
-                                id: currentNode.id,
-                                name: currentNode.data.name,
-                                label: currentNode.data.label,
-                                inputs: currentNode.data.inputs
-                            }
-                            body.currentNode = currentNode
-                        }
-
-                        body.previousNodes = previousNodes
-                    }
-
-                    response = await fetchList(body)
-                }
-                for (let j = 0; j < response.length; j += 1) {
-                    if (response[j].imageSrc) {
-                        const imageSrc = `${baseURL}/api/v1/node-icon/${response[j].name}`
-                        response[j].imageSrc = imageSrc
-                    }
-                }
-                if (isCreateNewOption) setOptions([...response, ...addNewOption])
-                else setOptions([...response])
-                setLoading(false)
+        let response = []
+        if (credentialNames.length) {
+            response = await fetchCredentialList()
+        } else {
+            const body = {
+                name,
+                nodeData
             }
-            fetchData()
-        })()
+            if (reactFlowInstance) {
+                const previousNodes = getAvailableNodesForVariable(
+                    reactFlowInstance.getNodes(),
+                    reactFlowInstance.getEdges(),
+                    nodeData.id,
+                    `${nodeData.id}-input-${name}-${nodeData.inputParams.find((param) => param.name === name)?.type || ''}`,
+                    true
+                ).map((node) => ({ id: node.id, name: node.data.name, label: node.data.label, inputs: node.data.inputs }))
 
+                let currentNode = reactFlowInstance.getNodes().find((node) => node.id === nodeData.id)
+                if (currentNode) {
+                    currentNode = {
+                        id: currentNode.id,
+                        name: currentNode.data.name,
+                        label: currentNode.data.label,
+                        inputs: currentNode.data.inputs
+                    }
+                    body.currentNode = currentNode
+                }
+
+                body.previousNodes = previousNodes
+            }
+
+            response = await fetchList(body)
+        }
+        for (let j = 0; j < response.length; j += 1) {
+            if (response[j].imageSrc) {
+                const imageSrc = `${baseURL}/api/v1/node-icon/${response[j].name}`
+                response[j].imageSrc = imageSrc
+            }
+        }
+        if (isCreateNewOption) setOptions([...response, ...addNewOption])
+        else setOptions([...response])
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        // Only fetch data on mount if there are no credentials (credentials need to be loaded immediately)
+        if (credentialNames.length) {
+            fetchData()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -189,6 +190,10 @@ export const AsyncDropdown = ({
                 open={open}
                 onOpen={() => {
                     setOpen(true)
+                    // Fetch data only when dropdown is opened (lazy loading)
+                    if (!credentialNames.length && options.length === 0) {
+                        fetchData()
+                    }
                 }}
                 onClose={() => {
                     setOpen(false)
